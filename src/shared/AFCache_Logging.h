@@ -36,3 +36,21 @@
 #define AFCacheLPLog AFLog
 
 #endif
+
+
+#ifdef USE_COCOA_LUMBERJACK
+#undef AFCACHE_LOGGING_ENABLED
+#define AFCACHE_LOGGING_ENABLED true
+
+#import <CocoaLumberJack/DDLog.h>
+
+#define AFCacheDDLog(fmt, ...) LOG_OBJC_TAG_MAYBE(YES, LOG_FLAG_DEBUG, LOG_FLAG_DEBUG, 0, @"AFCache", fmt, ## __VA_ARGS__)
+
+#define NSLog AFCacheDDLog
+#define AFLog AFCacheDDLog
+
+#else
+
+#define AFCacheDDLog AFLog
+
+#endif
